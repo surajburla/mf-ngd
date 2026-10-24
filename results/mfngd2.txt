@@ -1,0 +1,82 @@
+(mfngd) PS D:\Academics\mfngd> python scripts/run_comparison.py
+Running benchmark on device: cuda
+
+=== SPLIT MANIFEST ===
+train  beats=  67308  normal=  51723  abnormal=  15585
+val    beats=  13993  normal=  10996  abnormal=   2997
+test   beats=  18732  normal=  12309  abnormal=   6423
+pool (train+val) = 81301  (spec 81301)
+test             = 18732  (spec 18732)
+
+Pre-training DAE on noisy ECG signals...
+
+[Benchmarking Optimizer: Adam] (Parameters: 43,713)
+  Epoch 01 | Val AUPRC: 0.9689 | Val F1: 0.9364
+  Epoch 02 | Val AUPRC: 0.9491 | Val F1: 0.8845
+  Epoch 03 | Val AUPRC: 0.9540 | Val F1: 0.8883
+  Epoch 04 | Val AUPRC: 0.9574 | Val F1: 0.8504
+  -> Early stopping triggered at epoch 4
+
+[Benchmarking Optimizer: SGD] (Parameters: 43,713)
+  Epoch 01 | Val AUPRC: 0.7794 | Val F1: 0.6064
+  Epoch 02 | Val AUPRC: 0.8715 | Val F1: 0.8586
+  Epoch 03 | Val AUPRC: 0.7817 | Val F1: 0.6402
+  Epoch 04 | Val AUPRC: 0.8920 | Val F1: 0.7401
+  Epoch 05 | Val AUPRC: 0.9110 | Val F1: 0.8257
+  Epoch 06 | Val AUPRC: 0.9487 | Val F1: 0.8457
+  Epoch 07 | Val AUPRC: 0.9557 | Val F1: 0.8683
+  Epoch 08 | Val AUPRC: 0.9464 | Val F1: 0.8767
+  Epoch 09 | Val AUPRC: 0.9553 | Val F1: 0.6821
+  Epoch 10 | Val AUPRC: 0.9524 | Val F1: 0.8808
+  -> Early stopping triggered at epoch 10
+
+[Benchmarking Optimizer: KFAC] (Parameters: 43,713)
+  Epoch 01 | Val AUPRC: 0.8083 | Val F1: 0.6532
+  Epoch 02 | Val AUPRC: 0.8695 | Val F1: 0.6949
+  Epoch 03 | Val AUPRC: 0.8884 | Val F1: 0.7432
+  Epoch 04 | Val AUPRC: 0.8972 | Val F1: 0.7613
+  Epoch 05 | Val AUPRC: 0.9037 | Val F1: 0.7701
+  Epoch 06 | Val AUPRC: 0.9145 | Val F1: 0.7860
+  Epoch 07 | Val AUPRC: 0.9247 | Val F1: 0.8052
+  Epoch 08 | Val AUPRC: 0.9317 | Val F1: 0.8201
+  Epoch 09 | Val AUPRC: 0.9381 | Val F1: 0.8271
+  Epoch 10 | Val AUPRC: 0.9446 | Val F1: 0.8531
+  Epoch 11 | Val AUPRC: 0.9501 | Val F1: 0.8407
+  Epoch 12 | Val AUPRC: 0.9519 | Val F1: 0.8551
+  Epoch 13 | Val AUPRC: 0.9504 | Val F1: 0.8575
+  Epoch 14 | Val AUPRC: 0.9497 | Val F1: 0.8583
+  Epoch 15 | Val AUPRC: 0.9496 | Val F1: 0.8673
+  -> Early stopping triggered at epoch 15
+
+[Benchmarking Optimizer: TR-MFNGD-ExactCG] (Parameters: 43,713)
+  Epoch 01 | Val AUPRC: 0.8907 | Val F1: 0.8378
+  Epoch 02 | Val AUPRC: 0.8835 | Val F1: 0.8562
+  Epoch 03 | Val AUPRC: 0.8755 | Val F1: 0.8242
+  Epoch 04 | Val AUPRC: 0.8708 | Val F1: 0.7914
+  -> Early stopping triggered at epoch 4
+
+[Benchmarking Optimizer: TR-MFNGD-Dual] (Parameters: 43,713)
+  Epoch 01 | Val AUPRC: 0.9490 | Val F1: 0.8896
+  Epoch 02 | Val AUPRC: 0.9322 | Val F1: 0.8749
+  Epoch 03 | Val AUPRC: 0.8817 | Val F1: 0.8074
+  Epoch 04 | Val AUPRC: 0.8548 | Val F1: 0.6489
+  -> Early stopping triggered at epoch 4
+
+================================ UNIFIED BENCHMARK COMPARISON ================================
+Metric          | Adam       | SGD        | KFAC       | TR-MFNGD-ExactCG  | TR-MFNGD-Dual
+--------------------------------------------------------------------------------------------
+AUPRC           | 80.93%     | 76.76%     | 74.98%     | 77.29%            | 83.19%
+Accuracy        | 82.29%     | 80.00%     | 79.11%     | 77.53%            | 85.11%
+Precision       | 98.11%     | 98.23%     | 90.96%     | 73.65%            | 97.00%
+Recall          | 49.31%     | 42.44%     | 43.38%     | 53.65%            | 58.38%
+F1 Score        | 65.63%     | 59.27%     | 58.74%     | 62.08%            | 72.89%
+Wall Time (s)   | 12.62s     | 27.31s     | 179.80s    | 100.69s           | 25.69s
+--------------------------------------------------------------------------------------------
+RELATIVE CONVERGENCE INDEX (Synchronized Timers):
+--------------------------------------------------------------------------------------------
+[Adam            ] Rel-Time Index: 0.46x | Converged Epochs: 1
+[SGD             ] Rel-Time Index: 1.00x | Converged Epochs: 7
+[KFAC            ] Rel-Time Index: 6.58x | Converged Epochs: 12
+[TR-MFNGD-ExactCG] Rel-Time Index: 3.69x | Converged Epochs: 1
+[TR-MFNGD-Dual   ] Rel-Time Index: 0.94x | Converged Epochs: 1
+(mfngd) PS D:\Academics\mfngd> D:\Academics\college\DL\MF-NGD1.pptx
